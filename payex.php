@@ -22,6 +22,7 @@ class PayEx
 
 	static private $config;
 	static private $isConstructed;
+	static private $configFile = "config.php";
 
 	function __construct(){ PayEx::construct(); }
 
@@ -29,12 +30,16 @@ class PayEx
 		if(!self::$isConstructed){
 			self::$config = new stdClass();
 
-			$config = include("config.php");
+			$config = include(self::$configFile);
 			foreach($config as $name => $value){
 				self::setConfig($name, $value);
 			}
 			self::$isConstructed = true;
 		}
+	}
+
+	static function setConfigFile($filepath){
+		self::$configFile = $filepath;
 	}
 
 	static function setConfig($name, $value){

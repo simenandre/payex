@@ -5,7 +5,7 @@ This class was made to make the way we communicate with
 PayEx a bit more intutive as well as modern.
 
 The classes are all static, and fairly easy to manage.
-We use Laravel as a framework for most of our web applications, so this is made to be easy to install. Its on the roadmap to make a bundle for Laravel aswell.
+
 
 How to install?
 ---------------
@@ -28,7 +28,10 @@ ToDo
 >heavly on it, and there are no production package 
 >released yet.
 
-*We haven't had time to add the todolist yet*
+- Clean up the class.
+- Make a nice documentation
+- Add support for refund.
+- Add more awesome Payex features.
 
 Licence
 -------
@@ -36,6 +39,20 @@ Licence
 The project is released under GNU-license. The class
 are provided as is. And the class are in no way an offical
 class by PayEx. The initial creators are however a sertified partner with PayEx.
+
+What about Laravel support? 
+---------------------------
+
+This project had a Laravel-bundle here when Laravel 3 what the coolest.
+Now that people has began using Laravel Four, we're removing the Laravel
+version. To make this class work with Laravel, you only need to replace
+line 163:
+> header('Location: '.self::$status['redirectUrl']); exit;
+with:
+> return Redirect::to(self::$status['redirectUrl']);
+
+We're planning on making a much better class to support Laravel
+in the future.
 
 Support
 -------

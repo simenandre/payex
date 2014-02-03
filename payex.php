@@ -19,8 +19,9 @@ class PayEx
 	static private $additionalValues = '';
 	static private $externalID = '';
 	static private $agreementRef = '';
+	static private $view = 'CC';
 
-	static private $config;
+	static $config;
 	static private $isConstructed;
 	static private $configFile = "config.php";
 
@@ -32,7 +33,9 @@ class PayEx
 
 			$config = include(self::$configFile);
 			foreach($config as $name => $value){
-				self::setConfig($name, $value);
+				if(!isset(self::$config->{$name})){
+					self::setConfig($name, $value);
+				}
 			}
 			self::$isConstructed = true;
 		}
@@ -40,6 +43,7 @@ class PayEx
 
 	static function setConfigFile($filepath){
 		self::$configFile = $filepath;
+		self::construct();
 	}
 
 	static function setConfig($name, $value){
@@ -156,7 +160,7 @@ class PayEx
 		// if code & description & errorCode is OK, redirect the user
 		if(self::$status['code'] == "OK" && self::$status['errorCode'] == "OK" && self::$status['description'] == "OK")
 		{
-			header('Location: '.self::$status['redirectUrl']);
+			header('Location: '.self::$status['redirectUrl']); exit;
 		}else {
 			foreach(self::$status as $error => $value)
 			{ 
@@ -171,7 +175,7 @@ class PayEx
 		
 		$params = array
 		(
-			'accountNumber' => self::$accountNumber,
+			'accountNumber' => self::getConfig('accountNumber'),
 			'orderRef' => $orderRef
 		);
 				

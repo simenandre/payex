@@ -48,7 +48,9 @@ Now that people has began using Laravel Four, we're removing the Laravel
 version. To make this class work with Laravel, you only need to replace
 line 163:
 > header('Location: '.self::$status['redirectUrl']); exit;
+
 with:
+
 > return Redirect::to(self::$status['redirectUrl']);
 
 We're planning on making a much better class to support Laravel
